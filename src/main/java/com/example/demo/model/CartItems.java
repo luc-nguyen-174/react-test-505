@@ -10,10 +10,10 @@ public class CartItems {
     @Column(name = "id")
     private long id;
     @Basic
-    @Column(name = "cart_id")
+    @Column(name = "cart_id", insertable = false, updatable = false)
     private long cartId;
     @Basic
-    @Column(name = "product_id")
+    @Column(name = "product_id", insertable = false, updatable = false)
     private long productId;
     @Basic
     @Column(name = "quantity")

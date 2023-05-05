@@ -26,7 +26,7 @@ public class Product {
     @Column(name = "picture")
     private String picture;
     @Basic
-    @Column(name = "category_id")
+    @Column(name = "category_id", insertable = false, updatable = false)
     private long categoryId;
     @OneToMany(mappedBy = "productByProductId")
     private Collection<CartItems> cartItemsById;
@@ -130,11 +130,11 @@ public class Product {
         this.cartItemsById = cartItemsById;
     }
 
-    public Collection<OrderDetails> getOderDetailsById() {
+    public Collection<OrderDetails> getOrderDetailsById() {
         return orderDetailsById;
     }
 
-    public void setOderDetailsById(Collection<OrderDetails> orderDetailsById) {
+    public void setOrderDetailsById(Collection<OrderDetails> orderDetailsById) {
         this.orderDetailsById = orderDetailsById;
     }
 

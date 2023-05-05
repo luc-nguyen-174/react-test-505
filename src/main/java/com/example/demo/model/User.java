@@ -34,7 +34,7 @@ public class User {
     @OneToMany(mappedBy = "userByUserId")
     private Collection<Carts> cartsById;
     @OneToMany(mappedBy = "userByUserId")
-    private Collection<Order> ordersById;
+    private Collection<Orders> ordersById;
     @ManyToOne
     @JoinColumn(name = "role_id", referencedColumnName = "id", nullable = false)
     private Role roleByRoleId;
@@ -143,11 +143,11 @@ public class User {
         this.cartsById = cartsById;
     }
 
-    public Collection<Order> getOrdersById() {
+    public Collection<Orders> getOrdersById() {
         return ordersById;
     }
 
-    public void setOrdersById(Collection<Order> ordersById) {
+    public void setOrdersById(Collection<Orders> ordersById) {
         this.ordersById = ordersById;
     }
 

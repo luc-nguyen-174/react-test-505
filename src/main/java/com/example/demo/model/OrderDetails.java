@@ -23,7 +23,7 @@ public class OrderDetails {
     private long price;
     @ManyToOne
     @JoinColumn(name = "oder_id", referencedColumnName = "id", nullable = false)
-    private Order orderByOderId;
+    private Orders orderByOderId;
     @ManyToOne
     @JoinColumn(name = "product_id", referencedColumnName = "id", nullable = false)
     private Product productByProductId;
@@ -94,11 +94,11 @@ public class OrderDetails {
         return result;
     }
 
-    public Order getOrderByOderId() {
+    public Orders getOrderByOderId() {
         return orderByOderId;
     }
 
-    public void setOrderByOderId(Order orderByOderId) {
+    public void setOrderByOderId(Orders orderByOderId) {
         this.orderByOderId = orderByOderId;
     }
 

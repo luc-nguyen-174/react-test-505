@@ -6,7 +6,7 @@ import java.sql.Timestamp;
 import java.util.Collection;
 
 @Entity
-public class Order {
+public class Orders {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
     @Column(name = "id")
@@ -52,11 +52,11 @@ public class Order {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
-        Order order = (Order) o;
+        Orders orders = (Orders) o;
 
-        if (id != order.id) return false;
-        if (userId != order.userId) return false;
-        if (orderDate != null ? !orderDate.equals(order.orderDate) : order.orderDate != null) return false;
+        if (id != orders.id) return false;
+        if (userId != orders.userId) return false;
+        if (orderDate != null ? !orderDate.equals(orders.orderDate) : orders.orderDate != null) return false;
 
         return true;
     }

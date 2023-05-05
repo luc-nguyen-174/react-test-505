@@ -1,6 +1,6 @@
 package com.example.demo.service.orders.impl;
 
-import com.example.demo.model.Order;
+import com.example.demo.model.Orders;
 import com.example.demo.repo.IOrderRepository;
 import com.example.demo.service.orders.IOrderService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,18 +14,18 @@ public class OrderService implements IOrderService {
     private IOrderRepository orderRepository;
 
     @Override
-    public Iterable<Order> findAll() {
+    public Iterable<Orders> findAll() {
         return orderRepository.findAll();
     }
 
     @Override
-    public Optional<Order> findOne(Long id) {
+    public Optional<Orders> findOne(Long id) {
         return orderRepository.findById(id);
     }
 
     @Override
-    public Order save(Order order) {
-        return orderRepository.save(order);
+    public Orders save(Orders orders) {
+        return orderRepository.save(orders);
     }
 
     @Override

@@ -12,7 +12,7 @@ public class Order {
     @Column(name = "id")
     private long id;
     @Basic
-    @Column(name = "user_id")
+    @Column(name = "user_id", insertable = false, updatable = false)
     private long userId;
     @Basic
     @Column(name = "order_date")
@@ -20,7 +20,7 @@ public class Order {
     @ManyToOne
     @JoinColumn(name = "user_id", referencedColumnName = "id", nullable = false)
     private User userByUserId;
-    @OneToMany(mappedBy = "oderByOderId")
+    @OneToMany(mappedBy = "orderByOderId")
     private Collection<OrderDetails> orderDetailsById;
 
     public long getId() {
@@ -77,11 +77,11 @@ public class Order {
         this.userByUserId = userByUserId;
     }
 
-    public Collection<OrderDetails> getOderDetailsById() {
+    public Collection<OrderDetails> getOrderDetailsById() {
         return orderDetailsById;
     }
 
-    public void setOderDetailsById(Collection<OrderDetails> orderDetailsById) {
+    public void setOrderDetailsById(Collection<OrderDetails> orderDetailsById) {
         this.orderDetailsById = orderDetailsById;
     }
 }

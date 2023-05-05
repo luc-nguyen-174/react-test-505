@@ -11,7 +11,7 @@ public class Carts {
     @Column(name = "id")
     private long id;
     @Basic
-    @Column(name = "user_id")
+    @Column(name = "user_id", insertable = false, updatable = false)
     private Long userId;
     @OneToMany(mappedBy = "cartsByCartId")
     private Collection<CartItems> cartItemsById;

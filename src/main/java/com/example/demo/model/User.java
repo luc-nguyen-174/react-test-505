@@ -29,12 +29,12 @@ public class User {
     @Column(name = "address")
     private String address;
     @Basic
-    @Column(name = "role_id")
+    @Column(name = "role_id", insertable = false, updatable = false)
     private long roleId;
     @OneToMany(mappedBy = "userByUserId")
     private Collection<Carts> cartsById;
     @OneToMany(mappedBy = "userByUserId")
-    private Collection<Order> odersById;
+    private Collection<Order> ordersById;
     @ManyToOne
     @JoinColumn(name = "role_id", referencedColumnName = "id", nullable = false)
     private Role roleByRoleId;
@@ -143,12 +143,12 @@ public class User {
         this.cartsById = cartsById;
     }
 
-    public Collection<Order> getOdersById() {
-        return odersById;
+    public Collection<Order> getOrdersById() {
+        return ordersById;
     }
 
-    public void setOdersById(Collection<Order> odersById) {
-        this.odersById = odersById;
+    public void setOrdersById(Collection<Order> ordersById) {
+        this.ordersById = ordersById;
     }
 
     public Role getRoleByRoleId() {

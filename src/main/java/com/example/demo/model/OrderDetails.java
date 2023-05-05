@@ -3,17 +3,17 @@ package com.example.demo.model;
 import jakarta.persistence.*;
 
 @Entity
-@Table(name = "oder_details", schema = "demo-store", catalog = "")
+@Table(name = "order_details", schema = "demo-store", catalog = "")
 public class OrderDetails {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
     @Column(name = "id")
     private long id;
     @Basic
-    @Column(name = "oder_id")
+    @Column(name = "oder_id", insertable = false, updatable = false)
     private long oderId;
     @Basic
-    @Column(name = "product_id")
+    @Column(name = "product_id", insertable = false, updatable = false)
     private long productId;
     @Basic
     @Column(name = "quantity")
@@ -23,7 +23,7 @@ public class OrderDetails {
     private long price;
     @ManyToOne
     @JoinColumn(name = "oder_id", referencedColumnName = "id", nullable = false)
-    private Order oderByOrderId;
+    private Order orderByOderId;
     @ManyToOne
     @JoinColumn(name = "product_id", referencedColumnName = "id", nullable = false)
     private Product productByProductId;
@@ -94,12 +94,12 @@ public class OrderDetails {
         return result;
     }
 
-    public Order getOderByOderId() {
-        return oderByOrderId;
+    public Order getOrderByOderId() {
+        return orderByOderId;
     }
 
-    public void setOderByOderId(Order oderByOrderId) {
-        this.oderByOrderId = oderByOrderId;
+    public void setOrderByOderId(Order orderByOderId) {
+        this.orderByOderId = orderByOderId;
     }
 
     public Product getProductByProductId() {

@@ -5,7 +5,7 @@ import java.util.Optional;
 public interface IGeneral<T> {
     Iterable<T> findAll();
 
-    Optional<T> findOne();
+    Optional<T> findOne(Long id);
 
     T save(T t);
 

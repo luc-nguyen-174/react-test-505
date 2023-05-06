@@ -29,7 +29,7 @@ public class OrdersController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Orders> updateOrder(@PathVariable long id, @RequestBody Orders orders) {
+    public ResponseEntity<Orders> updateOrder(@PathVariable Long id, @RequestBody Orders orders) {
         Optional<Orders> order = orderService.findOne(id);
         if (order.isPresent()) {
             orders.setId(id);
@@ -39,7 +39,7 @@ public class OrdersController {
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Orders> deleteOrder(@PathVariable long id) {
+    public ResponseEntity<Orders> deleteOrder(@PathVariable Long id) {
         Optional<Orders> orders = orderService.findOne(id);
         if (orders.isPresent()) {
             orderService.remove(id);
@@ -49,7 +49,7 @@ public class OrdersController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Orders> viewOrderDetail(@PathVariable long id) {
+    public ResponseEntity<Orders> viewOrderDetail(@PathVariable Long id) {
         Optional<Orders> orders = orderService.findOne(id);
         return orders.map(order
                 -> new ResponseEntity<>(order, HttpStatus.OK)).orElseGet(()

@@ -49,7 +49,7 @@ public class ProductController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Product> viewProductDetail(@PathVariable long id) {
+    public ResponseEntity<Product> viewProductDetail(@PathVariable Long id) {
         Optional<Product> productOptional = productService.findOne(id);
         return productOptional.map(product
                 -> new ResponseEntity<>(product, HttpStatus.OK)).orElseGet(()

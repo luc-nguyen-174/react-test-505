@@ -55,6 +55,10 @@ public class User {
         this.roleByRoleId = roleByRoleId;
     }
 
+    public User() {
+
+    }
+
     public long getId() {
         return id;
     }

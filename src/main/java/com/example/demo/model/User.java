@@ -1,6 +1,7 @@
 package com.example.demo.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 
 import java.util.Collection;
@@ -42,6 +43,17 @@ public class User {
     @JsonIgnore
     @JoinColumn(name = "role_id", referencedColumnName = "id", nullable = false)
     private Role roleByRoleId;
+
+    public User(String username, String password) {
+        this.username = username;
+        this.password = password;
+    }
+
+    public User(String username, String password, Role roleByRoleId) {
+        this.username = username;
+        this.password = password;
+        this.roleByRoleId = roleByRoleId;
+    }
 
     public long getId() {
         return id;

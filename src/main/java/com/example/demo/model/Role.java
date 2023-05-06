@@ -1,8 +1,10 @@
 package com.example.demo.model;
 
-import jakarta.persistence.*;
 import lombok.Data;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import javax.persistence.*;
 
+import java.util.Collection;
 import java.util.Objects;
 
 @Entity
@@ -15,6 +17,11 @@ public class Role {
     @Basic
     @Column(name = "name")
     private String name;
+
+    @OneToMany(mappedBy = "roleByRoleId")
+    @JsonIgnore
+    private Collection<User> usersById;
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

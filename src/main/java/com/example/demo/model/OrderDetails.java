@@ -1,6 +1,7 @@
 package com.example.demo.model;
 
-import jakarta.persistence.*;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import javax.persistence.*;
 
 @Entity
 @Table(name = "order_details", schema = "demo-store", catalog = "")
@@ -22,9 +23,11 @@ public class OrderDetails {
     @Column(name = "price")
     private long price;
     @ManyToOne
+    @JsonIgnore
     @JoinColumn(name = "oder_id", referencedColumnName = "id", nullable = false)
     private Orders orderByOderId;
     @ManyToOne
+    @JsonIgnore
     @JoinColumn(name = "product_id", referencedColumnName = "id", nullable = false)
     private Product productByProductId;
 

@@ -1,6 +1,7 @@
 package com.example.demo.model;
 
-import jakarta.persistence.*;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import javax.persistence.*;
 
 import java.util.Collection;
 
@@ -14,6 +15,7 @@ public class Category {
     @Column(name = "category_name")
     private String categoryName;
     @OneToMany(mappedBy = "categoryByCategoryId")
+    @JsonIgnore
     private Collection<Product> productsById;
 
     public long getId() {

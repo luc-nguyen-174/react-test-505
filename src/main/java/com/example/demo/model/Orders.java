@@ -1,6 +1,7 @@
 package com.example.demo.model;
 
-import jakarta.persistence.*;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import javax.persistence.*;
 
 import java.sql.Timestamp;
 import java.util.Collection;
@@ -18,9 +19,11 @@ public class Orders {
     @Column(name = "order_date")
     private Timestamp orderDate;
     @ManyToOne
+    @JsonIgnore
     @JoinColumn(name = "user_id", referencedColumnName = "id", nullable = false)
     private User userByUserId;
     @OneToMany(mappedBy = "orderByOderId")
+    @JsonIgnore
     private Collection<OrderDetails> orderDetailsById;
 
     public long getId() {

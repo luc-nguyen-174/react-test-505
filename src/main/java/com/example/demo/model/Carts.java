@@ -1,6 +1,7 @@
 package com.example.demo.model;
 
-import jakarta.persistence.*;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import javax.persistence.*;
 
 import java.util.Collection;
 
@@ -14,8 +15,10 @@ public class Carts {
     @Column(name = "user_id", insertable = false, updatable = false)
     private Long userId;
     @OneToMany(mappedBy = "cartsByCartId")
+    @JsonIgnore
     private Collection<CartItems> cartItemsById;
     @ManyToOne
+    @JsonIgnore
     @JoinColumn(name = "user_id", referencedColumnName = "id")
     private User userByUserId;
 

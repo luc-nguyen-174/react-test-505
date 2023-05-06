@@ -1,5 +1,6 @@
 package com.example.demo.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 
 import java.util.Collection;
@@ -14,6 +15,7 @@ public class Role {
     @Column(name = "name")
     private String name;
     @OneToMany(mappedBy = "roleByRoleId")
+    @JsonIgnore
     private Collection<User> usersById;
 
     public long getId() {

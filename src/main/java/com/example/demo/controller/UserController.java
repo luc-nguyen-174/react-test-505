@@ -35,9 +35,9 @@ public class UserController {
         }
         User user = new User(username, password);
         if (userDto.getRoleName().equals("ROLE_USER")) {
-            user.setRole(userRole.get());
+            user.setRoleByRoleId(userRole.get());
         } else if (userDto.getRoleName().equals("ROLE_CLIENT")) {
-            user.setRole(clientRole.get());
+            user.setRoleByRoleId(clientRole.get());
         } else {
             return ResponseEntity.badRequest().body("Invalid role");
         }

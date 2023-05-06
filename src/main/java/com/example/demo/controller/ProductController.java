@@ -51,8 +51,8 @@ public class ProductController {
     @GetMapping("/{id}")
     public ResponseEntity<Product> viewProductDetail(@PathVariable long id) {
         Optional<Product> productOptional = productService.findOne(id);
-        return productOptional.map(customers
-                -> new ResponseEntity<>(customers, HttpStatus.OK)).orElseGet(()
+        return productOptional.map(product
+                -> new ResponseEntity<>(product, HttpStatus.OK)).orElseGet(()
                 -> new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }
 }

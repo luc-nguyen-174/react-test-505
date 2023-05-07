@@ -12,7 +12,7 @@ import java.util.Optional;
 
 @RestController
 @CrossOrigin("*")
-@RequestMapping("/api/cart-item")
+@RequestMapping("36")
 public class CartItemsController {
     @Autowired
     private ICartItemService cartItemService;

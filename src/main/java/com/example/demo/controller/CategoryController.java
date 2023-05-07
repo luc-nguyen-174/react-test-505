@@ -1,7 +1,6 @@
 package com.example.demo.controller;
 
 import com.example.demo.model.Category;
-import com.example.demo.service.Category.ICategoryervice;
 import com.example.demo.service.category.ICategoryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;

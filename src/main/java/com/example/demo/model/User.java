@@ -11,7 +11,7 @@ public class User {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
     @Column(name = "id")
-    private long id;
+    private Long id;
     @Basic
     @Column(name = "username")
     private String username;
@@ -32,7 +32,7 @@ public class User {
     private String address;
     @Basic
     @Column(name = "role_id", insertable = false, updatable = false)
-    private long roleId;
+    private Long roleId;
     @OneToMany(mappedBy = "userByUserId")
     @JsonIgnore
     private Collection<Carts> cartsById;
@@ -59,11 +59,11 @@ public class User {
 
     }
 
-    public long getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(long id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
@@ -115,11 +115,11 @@ public class User {
         this.address = address;
     }
 
-    public long getRoleId() {
+    public Long getRoleId() {
         return roleId;
     }
 
-    public void setRoleId(long roleId) {
+    public void setRoleId(Long roleId) {
         this.roleId = roleId;
     }
 

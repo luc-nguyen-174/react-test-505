@@ -9,19 +9,19 @@ public class CartItems {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
     @Column(name = "id")
-    private long id;
+    private Long id;
     @Basic
     @Column(name = "cart_id", insertable = false, updatable = false)
-    private long cartId;
+    private Long cartId;
     @Basic
     @Column(name = "product_id", insertable = false, updatable = false)
-    private long productId;
+    private Long productId;
     @Basic
     @Column(name = "quantity")
     private int quantity;
     @Basic
     @Column(name = "price")
-    private long price;
+    private Long price;
     @ManyToOne
     @JsonIgnore
     @JoinColumn(name = "cart_id", referencedColumnName = "id", nullable = false)
@@ -31,27 +31,27 @@ public class CartItems {
     @JoinColumn(name = "product_id", referencedColumnName = "id", nullable = false)
     private Product productByProductId;
 
-    public long getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(long id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
-    public long getCartId() {
+    public Long getCartId() {
         return cartId;
     }
 
-    public void setCartId(long cartId) {
+    public void setCartId(Long cartId) {
         this.cartId = cartId;
     }
 
-    public long getProductId() {
+    public Long getProductId() {
         return productId;
     }
 
-    public void setProductId(long productId) {
+    public void setProductId(Long productId) {
         this.productId = productId;
     }
 
@@ -63,11 +63,11 @@ public class CartItems {
         this.quantity = quantity;
     }
 
-    public long getPrice() {
+    public Long getPrice() {
         return price;
     }
 
-    public void setPrice(long price) {
+    public void setPrice(Long price) {
         this.price = price;
     }
 

@@ -1,6 +1,8 @@
 package com.example.demo.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import lombok.Data;
+
 import javax.persistence.*;
 
 import java.util.Collection;
@@ -10,25 +12,32 @@ public class Product {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
     @Column(name = "id")
-    private long id;
+    private Long id;
+    
     @Basic
     @Column(name = "name")
     private String name;
+    
     @Basic
     @Column(name = "price")
-    private long price;
+    private Long price;
+    
     @Basic
     @Column(name = "description")
     private String description;
+    
     @Basic
     @Column(name = "quantity")
     private int quantity;
+    
     @Basic
     @Column(name = "picture")
     private String picture;
+    
     @Basic
     @Column(name = "category_id", insertable = false, updatable = false)
-    private long categoryId;
+    private Long categoryId;
+    
     @OneToMany(mappedBy = "productByProductId")
     @JsonIgnore
     private Collection<CartItems> cartItemsById;
@@ -40,11 +49,11 @@ public class Product {
     @JoinColumn(name = "category_id", referencedColumnName = "id", nullable = false)
     private Category categoryByCategoryId;
 
-    public long getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(long id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
@@ -56,11 +65,11 @@ public class Product {
         this.name = name;
     }
 
-    public long getPrice() {
+    public Long getPrice() {
         return price;
     }
 
-    public void setPrice(long price) {
+    public void setPrice(Long price) {
         this.price = price;
     }
 
@@ -88,11 +97,22 @@ public class Product {
         this.picture = picture;
     }
 
-    public long getCategoryId() {
+    public Long getCategoryId() {
         return categoryId;
     }
 
-    public void setCategoryId(long categoryId) {
+    public void setCategoryId(Long categoryId) {
+        this.categoryId = categoryId;
+    }
+
+    public Product() {
+    }
+
+    public Product(String name, Long price, String description, int quantity, Long categoryId) {
+        this.name = name;
+        this.price = price;
+        this.description = description;
+        this.quantity = quantity;
         this.categoryId = categoryId;
     }
 

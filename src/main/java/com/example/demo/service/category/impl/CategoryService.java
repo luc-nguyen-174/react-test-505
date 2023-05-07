@@ -23,6 +23,9 @@ public class CategoryService implements ICategoryService {
         return categoryRepository.findById(id);
     }
 
+    public Category findById(Long id) {
+        return categoryRepository.getCategoriesById(id);
+    }
     @Override
     public Category save(Category category) {
         return categoryRepository.save(category);

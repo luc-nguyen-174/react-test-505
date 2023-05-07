@@ -13,31 +13,31 @@ public class Product {
     @Id
     @Column(name = "id")
     private Long id;
-    
+
     @Basic
     @Column(name = "name")
     private String name;
-    
+
     @Basic
     @Column(name = "price")
     private Long price;
-    
+
     @Basic
     @Column(name = "description")
     private String description;
-    
+
     @Basic
     @Column(name = "quantity")
     private int quantity;
-    
+
     @Basic
     @Column(name = "picture")
     private String picture;
-    
+
     @Basic
     @Column(name = "category_id", insertable = false, updatable = false)
     private Long categoryId;
-    
+
     @OneToMany(mappedBy = "productByProductId")
     @JsonIgnore
     private Collection<CartItems> cartItemsById;

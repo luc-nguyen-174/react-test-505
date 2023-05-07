@@ -3,10 +3,17 @@ package com.example.demo.controller;
 import com.example.demo.model.Product;
 import com.example.demo.service.product.IProductService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.env.Environment;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.util.FileCopyUtils;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.File;
+import java.io.IOException;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 
@@ -18,14 +25,22 @@ public class ProductController {
     @Autowired
     IProductService productService;
 
+    @Autowired
+    Environment env;
     @GetMapping
     public ResponseEntity<List<Product>> getAllProduct(){
         return new ResponseEntity<>((List<Product>) productService.findAll(), HttpStatus.OK);
     }
 
     @PostMapping("/create")
-    public ResponseEntity<Product> createProduct(@RequestBody Product product){
-        return new ResponseEntity<>(productService.save(product), HttpStatus.CREATED);
+    public ResponseEntity<String> uploadFile(@RequestParam("file") MultipartFile file, @ModelAttribute Product product) {
+        try {
+            product.setPicture(Arrays.toString(file.getBytes()));
+            productService.save(product);
+            return new ResponseEntity<>("File uploaded successfully", HttpStatus.OK);
+        } catch (IOException e) {
+            return new ResponseEntity<>("Failed to upload file", HttpStatus.INTERNAL_SERVER_ERROR);
+        }
     }
 
     @PutMapping("/{id}")

@@ -1,6 +1,9 @@
 package com.example.demo.controller;
 
+import com.example.demo.model.Category;
 import com.example.demo.model.Product;
+import com.example.demo.repo.ICategoryRepository;
+import com.example.demo.service.category.ICategoryService;
 import com.example.demo.service.product.IProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.env.Environment;
@@ -10,6 +13,7 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.util.FileCopyUtils;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import java.io.File;
 import java.io.IOException;
@@ -26,6 +30,12 @@ public class ProductController {
     IProductService productService;
 
     @Autowired
+    ICategoryService categoryService;
+
+    @Autowired
+    ICategoryRepository categoryRepository;
+
+    @Autowired
     Environment env;
     @GetMapping
     public ResponseEntity<List<Product>> getAllProduct(){
@@ -33,14 +43,34 @@ public class ProductController {
     }
 
     @PostMapping("/create")
-    public ResponseEntity<String> uploadFile(@RequestParam("file") MultipartFile file, @ModelAttribute Product product) {
+    public ResponseEntity<String> uploadFile(MultipartHttpServletRequest request) {
+        String name = request.getParameter("name");
+        Long price = Long.parseLong(request.getParameter("price"));
+        String des = request.getParameter("description");
+        Long quantity = Long.parseLong(request.getParameter("quantity"));
+        Long categoryId = Long.parseLong(request.getParameter("categoryId"));
+
+
+
+        Product product = new Product(name,price,des,quantity);
+        product.setCategoryId(categoryId);
+        MultipartFile fileMultipart = request.getFile("picture");
+        String image = fileMultipart.getOriginalFilename();
+
+        String fileUpload = env.getProperty("upload.path").toString();
         try {
-            product.setPicture(Arrays.toString(file.getBytes()));
-            productService.save(product);
-            return new ResponseEntity<>("File uploaded successfully", HttpStatus.OK);
+            fileMultipart.transferTo(new File(fileUpload + image));
         } catch (IOException e) {
-            return new ResponseEntity<>("Failed to upload file", HttpStatus.INTERNAL_SERVER_ERROR);
+            throw new RuntimeException(e);
         }
+
+        Category category = categoryRepository.getCategoriesById(categoryId);
+        product.setCategoryByCategoryId(category);
+
+
+        product.setPicture(image);
+        productService.save(product);
+        return new ResponseEntity<>(HttpStatus.CREATED);
     }
 
     @PutMapping("/{id}")

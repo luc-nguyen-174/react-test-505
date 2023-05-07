@@ -1,13 +1,15 @@
 package com.example.demo.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 
 import java.util.Collection;
+import java.util.Optional;
 
 @Entity
+@NoArgsConstructor
 public class Product {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
@@ -28,7 +30,7 @@ public class Product {
 
     @Basic
     @Column(name = "quantity")
-    private int quantity;
+    private Long quantity;
 
     @Basic
     @Column(name = "picture")
@@ -48,6 +50,13 @@ public class Product {
     @JsonIgnore
     @JoinColumn(name = "category_id", referencedColumnName = "id", nullable = false)
     private Category categoryByCategoryId;
+
+    public Product(String name, Long price, String description, Long quantity) {
+        this.name = name;
+        this.price = price;
+        this.description = description;
+        this.quantity = quantity;
+    }
 
     public Long getId() {
         return id;
@@ -81,11 +90,11 @@ public class Product {
         this.description = description;
     }
 
-    public int getQuantity() {
+    public Long getQuantity() {
         return quantity;
     }
 
-    public void setQuantity(int quantity) {
+    public void setQuantity(Long quantity) {
         this.quantity = quantity;
     }
 
@@ -105,10 +114,7 @@ public class Product {
         this.categoryId = categoryId;
     }
 
-    public Product() {
-    }
-
-    public Product(String name, Long price, String description, int quantity, Long categoryId) {
+    public Product(String name, Long price, String description, Long quantity, Long categoryId) {
         this.name = name;
         this.price = price;
         this.description = description;
@@ -140,7 +146,7 @@ public class Product {
         result = 31 * result + (name != null ? name.hashCode() : 0);
         result = 31 * result + (int) (price ^ (price >>> 32));
         result = 31 * result + (description != null ? description.hashCode() : 0);
-        result = 31 * result + quantity;
+        result = (int) (31 * result + quantity);
         result = 31 * result + (picture != null ? picture.hashCode() : 0);
         result = 31 * result + (int) (categoryId ^ (categoryId >>> 32));
         return result;

@@ -10,7 +10,7 @@ public class Carts {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
     @Column(name = "id")
-    private long id;
+    private Long id;
     @Basic
     @Column(name = "user_id", insertable = false, updatable = false)
     private Long userId;
@@ -22,11 +22,11 @@ public class Carts {
     @JoinColumn(name = "user_id", referencedColumnName = "id")
     private User userByUserId;
 
-    public long getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(long id) {
+    public void setId(Long id) {
         this.id = id;
     }
 

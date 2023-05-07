@@ -35,19 +35,6 @@ public class Role {
     }
 
     @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-
-        Role role = (Role) o;
-
-        if (id != role.id) return false;
-        if (name != null ? !name.equals(role.name) : role.name != null) return false;
-
-        return true;
-    }
-
-    @Override
     public int hashCode() {
         int result = (int) (id ^ (id >>> 32));
         result = 31 * result + (name != null ? name.hashCode() : 0);
@@ -61,4 +48,5 @@ public class Role {
     public void setUsersById(Collection<User> usersById) {
         this.usersById = usersById;
     }
+
 }

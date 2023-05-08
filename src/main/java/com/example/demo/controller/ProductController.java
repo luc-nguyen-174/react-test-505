@@ -15,11 +15,13 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
+import javax.servlet.http.HttpServletRequest;
 import java.io.File;
 import java.io.IOException;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
+import java.util.UUID;
 
 @RestController
 @CrossOrigin("*")
@@ -37,46 +39,25 @@ public class ProductController {
 
     @Autowired
     Environment env;
+
+
     @GetMapping
-    public ResponseEntity<List<Product>> getAllProduct(){
+    public ResponseEntity<List<Product>> getAllProduct() {
         return new ResponseEntity<>((List<Product>) productService.findAll(), HttpStatus.OK);
     }
 
     @PostMapping("/create")
-    public ResponseEntity<String> uploadFile(MultipartHttpServletRequest request) {
-        String name = request.getParameter("name");
-        Long price = Long.parseLong(request.getParameter("price"));
-        String des = request.getParameter("description");
-        Long quantity = Long.parseLong(request.getParameter("quantity"));
-        Long categoryId = Long.parseLong(request.getParameter("categoryId"));
-
-
-
-        Product product = new Product(name,price,des,quantity);
-        product.setCategoryId(categoryId);
-        MultipartFile fileMultipart = request.getFile("picture");
-        String image = fileMultipart.getOriginalFilename();
-
-        String fileUpload = env.getProperty("upload.path").toString();
-        try {
-            fileMultipart.transferTo(new File(fileUpload + image));
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-
-        Category category = categoryRepository.getCategoriesById(categoryId);
+    public ResponseEntity<Product> createProduct(@RequestBody Product product) {
+        Long categoryId = product.getCategoryId();
+        Category category = categoryRepository.getCategoryById(categoryId);
         product.setCategoryByCategoryId(category);
-
-
-        product.setPicture(image);
-        productService.save(product);
-        return new ResponseEntity<>(HttpStatus.CREATED);
+        return new ResponseEntity<>(productService.save(product), HttpStatus.CREATED);
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Product> editProduct(@PathVariable Long id, @RequestBody Product product ){
+    public ResponseEntity<Product> editProduct(@PathVariable Long id, @RequestBody Product product) {
         Optional<Product> productOptional = productService.findOne(id);
-        if(productOptional.isPresent()){
+        if (productOptional.isPresent()) {
             product.setId(id);
             return ResponseEntity.ok(productService.save(product));
         }
@@ -84,9 +65,9 @@ public class ProductController {
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Product> deleteProduct(@PathVariable Long id){
+    public ResponseEntity<Product> deleteProduct(@PathVariable Long id) {
         Optional<Product> productOptional = productService.findOne(id);
-        if(productOptional.isPresent()){
+        if (productOptional.isPresent()) {
             productService.remove(id);
             return new ResponseEntity<>(productOptional.get(), HttpStatus.OK);
         }
